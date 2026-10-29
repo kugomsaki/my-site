@@ -4,42 +4,42 @@
     box-sizing: border-box;
 }
 
-body{
-      font-family: 'Helvetica Neue',Arial, sans-serif;
-      color: #333;
-      background-color: f9f9f9;
-      line-height: 1.6;  
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    line-height: 1.6;  
 }
 
-header{
-        background-color: #ffffff;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 40px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0,0.5);
+header {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-header .logo{
-              font-size: 24px;
-              font-weight: bold;
-              color: #333;
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
 }
 
 header nav a {
-                text-decoration: none;
+    text-decoration: none;
     color: #666;
     margin-left: 20px;
     font-weight: 500;
 }
 
 header nav a:hover {
-    color: #007aff; /* マウスをのせると青くなる */
+    color: #007aff;
 }
 
 /* 2. メインビジュアル（ヒーローエリア）のデザイン */
 .hero {
-    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); /* きれいなグラデーション */
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
     padding: 80px 20px;
     text-align: center;
 }
@@ -53,14 +53,13 @@ header nav a:hover {
     color: #555;
     margin-bottom: 25px;
 }
-/* ボタンのデザイン */
 .hero .btn {
     display: inline-block;
     background-color: #333;
     color: #fff;
     padding: 12px 30px;
     text-decoration: none;
-    border-radius: 25px; /* 丸みをつける */
+    border-radius: 25px;
     font-weight: bold;
     transition: 0.3s;
 }
@@ -81,7 +80,7 @@ header nav a:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 .profile h2 {
-    border-left: 5px solid #007aff; /* 左側に青い縦線をひく */
+    border-left: 5px solid #007aff;
     padding-left: 10px;
     margin-bottom: 15px;
 }
@@ -96,67 +95,145 @@ footer {
     margin-top: 40px;
 }
 
-.note-section{
-  margin-top: 50px;
+.note-section {
+    margin-top: 50px;
 }
 
-.note-section h2{
-border-left: 5px solid #2cb696;
-padding-left: 10px;
-margin-bottom: 20px;
+.note-section h2 {
+    border-left: 5px solid #2cb696;
+    padding-left: 10px;
+    margin-bottom: 20px;
 }
 
-/* 記事をきれいに並べる仕組み（テーブル状のレイアウト） */
-.articles-grid {
+/* ==========================================
+   記事グリッド共通設定（ハイフンあり・なし両対応）
+   ========================================== */
+.articles-grid,
+.articlesgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+/* 記事カード1枚あたりの設定 */
+.articles-grid .article-card,
+.articlesgrid .article-card {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 20px;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
 }
 
-/* 記事カード本体 */
-.article-card{
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hiddien;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  text-decoration: none;
-  color: #333;
-  width: calc(50% - 10px);
-  transition: transform 0.3s;
-  display: flex;
-  flex-direction: column;
+.articles-grid .article-card:hover,
+.articlesgrid .article-card:hover {
+    transform: translateY(-5px);
 }
 
-.article-card:hover{
-  transform: translateY(-5px)
+/* リンクの青文字・下線を消す */
+.articles-grid a,
+.articlesgrid a,
+.articles-grid a:visited,
+.articlesgrid a:visited {
+    color: inherit;
+    text-decoration: none;
 }
 
-.article-card img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+/* カードの中にある画像 */
+.articles-grid img,
+.articlesgrid img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
 }
 
-.card-content{
-  padding: 15px;
-  flex-grow: 1;
+/* おすすめ記事のエリア（#random-articles-grid）専用の強力な修正 */
+#random-articles-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+    gap: 16px !important;
 }
 
-.article-card h3{
-  font-size: 16px;
-  margin-bottom: 8px;
-  line-height: 1.4;
+#random-articles-grid .article-card {
+    display: flex !important;
+    flex-direction: column !important;
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    text-decoration: none !important;
 }
 
-.article-card p{
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 10px;
+/* 画像を強制的に「正方形に近い、綺麗な縦横比（または固定高さ）」にする */
+#random-articles-grid .article-card img {
+    width: 100% !important;
+    height: 160px !important;       /* 高さを固定 */
+    max-height: 160px !important;   /* これ以上大きくならないようにする */
+    object-fit: cover !important;   /* はみ出た部分を綺麗に切り抜く */
+    display: block !important;
 }
 
-.article-card .date{
-  font-size: 11px;
-  color: #999;
+/* カードの中身のテキストエリア */
+.card-content {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.article-card h3 {
+    font-size: 15px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    color: #333;
+}
+
+.article-card p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.article-card .date {
+    font-size: 11px;
+    color: #999;
+}
+
+/* ==========================================
+   おすすめ記事（#random-articles-grid）の見た目を強制修復
+   ========================================== */
+
+/* 1. グリッドの形を整える */
+#random-articles-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+    gap: 16px !important;
+}
+
+/* 2. カード全体の枠組みを整える */
+#random-articles-grid .article-card {
+    display: flex !important;
+    flex-direction: column !important;
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    text-decoration: none !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* 3. 【超重要】画像の上に重なっている余計な文字や要素を隠す */
+#random-articles-grid .article-card img {
+    width: 100% !important;
+    height: 150px !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* もしJavaScript等が画像の上にタイトルを重ねる要素を作っている場合、それを一度スッキリさせるための設定 */
+#random-articles-grid .article-card img + * {
+    /* 画像のすぐ後ろにある不要なオーバーレイ文字などを調整 */
 }
